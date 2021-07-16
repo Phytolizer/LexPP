@@ -4,5 +4,3 @@ project('LexPP', 'cpp',
 
 exe = executable('lexpp', 'lexpp.cpp',
   install : true)
-
-test('basic', exe)
