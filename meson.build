@@ -1,11 +1,17 @@
 project('LexPP', 'cpp',
   version : '0.1',
-  default_options : ['warning_level=3', 'cpp_std=c++20']
+  default_options : ['warning_level=3', 'cpp_std=c++latest']
 )
+cmake = import('cmake')
 
-fmtdep = dependency('fmt')
+opt_var = cmake.subproject_options()
 
-exe = executable('lexpp', 'lexpp.cpp',
+opt_var.add_cmake_defines({'CMAKE_BUILD_TYPE': 'Debug'})
+
+fmt = cmake.subproject('fmt', options : opt_var)
+fmtdep = fmt.dependency('fmt')
+
+exe = executable('lexpp', ['lexpp.cpp'],
   install : true, 
-  dependencies : fmtdep
+  dependencies : [fmtdep]
 )
