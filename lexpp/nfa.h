@@ -23,6 +23,12 @@ enum class Anchor
 template <typename T>
 concept is_enum = std::is_enum_v<T>;
 
+template <typename T, typename U>
+concept is_static_castable = requires(T t)
+{
+    static_cast<U>(t);
+};
+
 template <typename T> T operator|(T left, T right) requires is_enum<T>
 {
     return static_cast<T>(static_cast<std::uint64_t>(left) | static_cast<std::uint64_t>(right));
